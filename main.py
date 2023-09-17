@@ -8,7 +8,7 @@ def main():
     start_time = time.time()
     dataset = open_dataset()
 
-    es = EvolutionStrategy(dataset, 25, 1000, 0.3)
+    es = EvolutionStrategy(dataset, 25, 1000, 0.45)
     result = es.start()
 
     end_time = time.time()
