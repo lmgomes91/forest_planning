@@ -4,23 +4,21 @@ import time
 
 
 def main():
+    print('Processing...')
+    start_time = time.time()
     dataset = open_dataset()
 
-    es = EvolutionStrategy(dataset, 100)
+    es = EvolutionStrategy(dataset, 25, 1000, 0.3)
+    result = es.start()
 
-    start_time = time.time()
-    es.start()
     end_time = time.time()
-
-    # Calculate the elapsed time in seconds
-    elapsed_time_seconds = end_time - start_time
-
-    # Convert the elapsed time to minutes
-    elapsed_time_minutes = elapsed_time_seconds / 60
+    elapsed_time_minutes = (end_time - start_time) / 60
 
     print(f"The algorithm took {elapsed_time_minutes:.2f} minutes to run.")
+    print(f"\nVPL: {result['vpl']}")
+    print(f"\nSolution: {result['solution']}")
+    print(f"\nPlanning Horizon: {result['planning_horizon']}")
 
 
 if __name__ == '__main__':
     main()
-
