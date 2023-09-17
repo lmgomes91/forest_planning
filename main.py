@@ -1,15 +1,24 @@
 from src.utils.dataset import open_dataset
-from src.evolution_strategy.individual import generate_individual
+from src.evolution_strategy.evolution_strategy import EvolutionStrategy
+import time
 
 
 def main():
     dataset = open_dataset()
-    vpl = 0
-    i = 0
-    while i < 10:
-        individual = generate_individual(dataset)
-        print(individual['vpl'].values[0])
-        i += 1
+
+    es = EvolutionStrategy(dataset, 100)
+
+    start_time = time.time()
+    es.start()
+    end_time = time.time()
+
+    # Calculate the elapsed time in seconds
+    elapsed_time_seconds = end_time - start_time
+
+    # Convert the elapsed time to minutes
+    elapsed_time_minutes = elapsed_time_seconds / 60
+
+    print(f"The algorithm took {elapsed_time_minutes:.2f} minutes to run.")
 
 
 if __name__ == '__main__':
