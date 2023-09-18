@@ -3,7 +3,7 @@ from multiprocessing import Pool
 
 import pandas as pd
 
-from src.evolution_strategy.individual import recalculate_vpl, create_individual_by_mutation
+from src.evolution_strategy.individual import create_individual_by_mutation
 from src.evolution_strategy.population import sort_population, init_population
 
 
