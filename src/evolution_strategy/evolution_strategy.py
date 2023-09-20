@@ -1,43 +1,33 @@
 import multiprocessing
 from multiprocessing import Pool
-
-import pandas as pd
-
+import numpy as np
 from src.evolution_strategy.individual import create_individual_by_mutation
-from src.evolution_strategy.population import sort_population, init_population
+from src.evolution_strategy.population import sort_population, init_population, calculate_vpl_population
 
 
 class EvolutionStrategy:
 
-    def __init__(self, dataset: pd.DataFrame, mu: int, generations: int, mutation: float):
+    def __init__(self, dataset: np.ndarray, mu: int, generations: int, mutation: float):
         self.dataset = dataset
         self.mu = mu
         self.generations = generations
         self.mutation = mutation
 
-    def start(self) -> pd.DataFrame:
-        population = sort_population(
-            init_population(self.mu, self.dataset)
-        )
+    def start(self) -> np.ndarray:
+        population = init_population(self.mu)
+        calculate_vpl_population(population, self.dataset, False)
+        population = sort_population(population)
 
         for i in range(self.generations):
-            # make it parallel
-            # new_population = []
-            # for _, individual in population.iterrows():
-            #     new_individual = shift10_with_mutation_factor(individual.copy(deep=True), self.dataset, self.mutation)
-            #     recalculate_vpl(new_individual, self.dataset)
-            #
-            #     new_population.append(
-            #         new_individual
-            #     )
-
             with Pool(multiprocessing.cpu_count()) as pool:
-                new_population = pool.starmap(create_individual_by_mutation,
-                                              [(row, self.dataset, self.mutation) for _, row in population.iterrows()])
-
-            population = pd.concat([population, pd.DataFrame(new_population)], ignore_index=True)
-            population = (sort_population(population)).iloc[:self.mu]
-
-            # print(f"Iteration: {i}\tVLP: {population['vpl'][0]}")
-
-        return population.iloc[0]
+                new_population = pool.starmap(
+                    create_individual_by_mutation,
+                    [
+                        (np.copy(individual, order='K'),
+                         self.dataset, self.mutation) for individual in population
+                    ]
+                )
+            calculate_vpl_population(new_population, self.dataset)
+            population = np.vstack((population, new_population))
+            population = (sort_population(population))[:population.shape[0]//2]
+        return population[-1]
