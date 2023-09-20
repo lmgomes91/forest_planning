@@ -1,39 +1,39 @@
-import pandas as pd
 import random
+from numpy import ndarray
 
-from pandas import Series
 
-
-def shift1(individual: pd.Series, dataset: pd.DataFrame) -> Series:
+def shift1(individual: ndarray, dataset: ndarray) -> ndarray:
     shift_position = random.randint(0, 119)
-    new_slope = dataset[(dataset['TAL'] == shift_position + 1)].sample(n=1)
-    individual['solution'][shift_position] = new_slope['PRE'].values[0]
+    fields_filter = dataset[dataset[:, 0] == shift_position + 1]
+    field = fields_filter[random.randint(0, fields_filter.shape[0] - 1)]
+    individual[1][shift_position] = field[2]
 
     return individual
 
 
 def shift_with_mutation_factor(
-        individual: pd.Series, dataset: pd.DataFrame, mutation_factor: float, shift_number: int
-) -> Series:
+        individual: ndarray, dataset: ndarray, mutation_factor: float, shift_number: int
+) -> ndarray:
     for i in range(0, shift_number):
         if round(random.uniform(0, 1), 2) <= mutation_factor:
-            shift_position = random.randint(0, 119)
-            new_slope = dataset[(dataset['TAL'] == shift_position + 1)].sample(n=1)
-            individual['solution'][shift_position] = new_slope['PRE'].values[0]
+            fields_filter = dataset[dataset[:, 0] == i + 1]
+            field = fields_filter[random.randint(0, fields_filter.shape[0] - 1)]
+            individual[1][i] = field[2]
     return individual
 
 
 def shift_all(
-        individual: pd.Series, dataset: pd.DataFrame, mutation_factor: float
-) -> Series:
+        individual: ndarray, dataset: ndarray, mutation_factor: float
+) -> ndarray:
     for i in range(0, 120):
         if round(random.uniform(0, 1), 2) <= mutation_factor:
-            new_slope = dataset[(dataset['TAL'] == i + 1)].sample(n=1)
-            individual['solution'][i] = new_slope['PRE'].values[0]
+            fields_filter = dataset[dataset[:, 0] == i + 1]
+            field = fields_filter[random.randint(0, fields_filter.shape[0] - 1)]
+            individual[1][i] = field[2]
     return individual
 
 
-def mutation(individual: pd.Series, dataset: pd.DataFrame, mutation_factor: float, shift_number: int) -> pd.Series:
+def mutation(individual: ndarray, dataset: ndarray, mutation_factor: float, shift_number: int) -> ndarray:
     match random.randint(1, 6):
         case 1:
             return shift1(individual, dataset)
