@@ -10,7 +10,7 @@ def main():
         start_time = time.time()
         dataset = open_dataset()
 
-        es = EvolutionStrategy(dataset, multiprocessing.cpu_count() * 3, 1000, 0.40)
+        es = EvolutionStrategy(dataset, multiprocessing.cpu_count(), 1000, 0.40)
         result = es.start()
 
         end_time = time.time()

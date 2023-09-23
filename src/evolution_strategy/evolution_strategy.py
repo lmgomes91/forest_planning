@@ -1,6 +1,8 @@
+import concurrent.futures
 import multiprocessing
 from multiprocessing import Pool
 import numpy as np
+from src.evolution_strategy.ils import ils
 from src.evolution_strategy.individual import create_individual_by_mutation
 from src.evolution_strategy.population import sort_population, init_population, calculate_vpl_population
 
@@ -17,17 +19,36 @@ class EvolutionStrategy:
         population = init_population(self.mu)
         calculate_vpl_population(population, self.dataset, False)
         population = sort_population(population)
+        num_cores = multiprocessing.cpu_count()
 
         for i in range(self.generations):
-            with Pool(multiprocessing.cpu_count()) as pool:
+            with Pool(num_cores) as pool:
                 new_population = pool.starmap(
                     create_individual_by_mutation,
                     [
-                        (np.copy(individual, order='K'),
+                        (individual.copy(),
                          self.dataset, self.mutation) for individual in population
                     ]
                 )
             calculate_vpl_population(new_population, self.dataset)
             population = np.vstack((population, new_population))
             population = (sort_population(population))[:population.shape[0]//2]
-        return population[-1]
+
+        print(f'Worst Vpl before ils: {population[num_cores-1][0]}')
+        print(f'Best Vpl before ils: {population[0][0]}')
+
+        with concurrent.futures.ProcessPoolExecutor(max_workers=num_cores) as executor:
+            futures = [
+                executor.submit(
+                    ils,
+                    individual,
+                    self.dataset
+                ) for individual in population[:num_cores]
+            ]
+
+            for p, future in enumerate(concurrent.futures.as_completed(futures)):
+                population[p] = future.result()
+
+        print(f'Worst Vpl after ils: {population[num_cores-1][0]}')
+        print(f'Best Vpl after ils: {population[0][0]}')
+        return population[0]
