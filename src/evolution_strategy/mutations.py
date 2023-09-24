@@ -42,9 +42,9 @@ def mutation(individual: ndarray, dataset: ndarray, mutation_factor: float, shif
         case 3:
             return shift_with_mutation_factor(individual, dataset, mutation_factor, 5)
         case 4:
-            return shift_with_mutation_factor(individual, dataset, mutation_factor, 10)
+            return shift_with_mutation_factor(individual, dataset, mutation_factor, 7)
         case 5:
-            return shift_with_mutation_factor(individual, dataset, mutation_factor, 15)
+            return shift_with_mutation_factor(individual, dataset, mutation_factor, 9)
         case 6:
             return shift_all(individual, dataset, mutation_factor)
         case _:

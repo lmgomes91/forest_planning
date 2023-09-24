@@ -1,7 +1,6 @@
 import numpy as np
 from numpy import ndarray
 import random
-
 from src.evolution_strategy.fo import calculate_vpl
 from src.evolution_strategy.local_search import local_search
 from src.evolution_strategy.mutations import mutation

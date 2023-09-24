@@ -98,8 +98,8 @@ def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
         case 2:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=5))
         case 3:
-            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=10))
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=7))
         case 4:
-            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=15))
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=9))
         case _:
             return individual
