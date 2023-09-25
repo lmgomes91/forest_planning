@@ -19,8 +19,7 @@ def save_result(results: np.ndarray, time: float, mu: float, mutation: float, ge
                 f'\n{result[0]};{solution};{planning_horizon};{time};{mu};{mutation};{generations}'
             )
 
-        is_within_range = (result[2] >= MIN_YEAR_VOLUME) & (result[2] <= MAX_YEAR_VOLUME)
-        if is_within_range:
+        if np.all(result[2] >= MIN_YEAR_VOLUME) and np.all(result[2] <= MAX_YEAR_VOLUME):
             with open(f'dataset/feasible_results.csv', "a") as file:
                 file.write(
                     f'\n{result[0]};{solution};{planning_horizon};{time};{mu};{mutation};{generations}'

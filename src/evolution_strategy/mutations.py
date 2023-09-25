@@ -33,19 +33,19 @@ def shift_all(
     return individual
 
 
-def mutation(individual: ndarray, dataset: ndarray, mutation_factor: float, shift_number: int) -> ndarray:
-    match random.randint(1, 6):
+def mutation(individual: ndarray, dataset: ndarray, mutation_factor: float) -> ndarray:
+    match random.randint(1, 5):
         case 1:
             return shift1(individual, dataset)
         case 2:
-            return shift_with_mutation_factor(individual, dataset, mutation_factor, shift_number)
+            return shift_with_mutation_factor(individual, dataset, mutation_factor, 10)
         case 3:
             return shift_with_mutation_factor(individual, dataset, mutation_factor, 5)
         case 4:
             return shift_with_mutation_factor(individual, dataset, mutation_factor, 7)
         case 5:
             return shift_with_mutation_factor(individual, dataset, mutation_factor, 9)
-        case 6:
-            return shift_all(individual, dataset, mutation_factor)
+        # case 6:
+        #     return shift_all(individual, dataset, mutation_factor)
         case _:
             return individual

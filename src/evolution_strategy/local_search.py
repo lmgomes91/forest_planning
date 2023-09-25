@@ -29,19 +29,16 @@ def shift1_random_field_best_improvement(individual: np.ndarray, dataset: np.nda
 
     actual_vpl = individual[0]
     actual_field = individual[1][shift_position]
-    actual_planning = individual[2]
     for field in fields_filter:
         individual[1][shift_position] = field[2]
         calculate_vpl(individual, dataset)
         if individual[0] > actual_vpl:
             actual_vpl = individual[0]
             actual_field = individual[1][shift_position]
-            actual_planning = individual[2]
         else:
             individual[0] = actual_vpl
             individual[1][shift_position] = actual_field
-            individual[2] = actual_planning
-
+            calculate_vpl(individual, dataset)
     return individual
 
 
@@ -49,7 +46,6 @@ def shift_all_best_improvement(individual: np.ndarray, dataset: np.ndarray) -> n
     for i in range(0, 120):
         actual_vpl = individual[0]
         actual_field = individual[1][i]
-        actual_planning = individual[2]
 
         fields_filter: np.ndarray = dataset[dataset[:, 0] == i + 1]
 
@@ -59,11 +55,11 @@ def shift_all_best_improvement(individual: np.ndarray, dataset: np.ndarray) -> n
             if individual[0] > actual_vpl:
                 actual_vpl = individual[0]
                 actual_field = individual[1][i]
-                actual_planning = individual[2]
             else:
                 individual[0] = actual_vpl
                 individual[1][i] = actual_field
-                individual[2] = actual_planning
+                calculate_vpl(individual, dataset)
+
     return individual
 
 
@@ -71,7 +67,6 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
     for i in fields_numbers:
         actual_vpl = individual[0]
         actual_field = individual[1][i]
-        actual_planning = individual[2]
 
         fields_filter: np.ndarray = dataset[dataset[:, 0] == i + 1]
 
@@ -81,11 +76,10 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
             if individual[0] > actual_vpl:
                 actual_vpl = individual[0]
                 actual_field = individual[1][i]
-                actual_planning = individual[2]
             else:
                 individual[0] = actual_vpl
                 individual[1][i] = actual_field
-                individual[2] = actual_planning
+                calculate_vpl(individual, dataset)
     return individual
 
 

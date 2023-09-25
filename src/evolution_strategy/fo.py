@@ -4,7 +4,7 @@ from src.utils.constants import MIN_YEAR_VOLUME, MAX_YEAR_VOLUME, PENALTY
 
 def penalize(individual: ndarray):
     for year_plan in individual[2]:
-        if int(year_plan) < MIN_YEAR_VOLUME or int(year_plan) > MAX_YEAR_VOLUME:
+        if year_plan < MIN_YEAR_VOLUME or year_plan > MAX_YEAR_VOLUME:
             individual[0] -= PENALTY
 
 
