@@ -39,7 +39,8 @@ class EvolutionStrategy:
                     ]
                 )
 
-            population = tournament_selection(np.vstack((population, new_population)), self.mu)
+            # population = tournament_selection(np.vstack((population, new_population)), self.mu)
+            population = elitism_selection(np.vstack((population, new_population)))
             print(f'Iteration {i+1}\tVPL -> Best: {population[0][0]} worst: {population[-1][0]}')
 
             if vpl == population[0][0]:

@@ -18,7 +18,7 @@ def shift1_random_field_first_improvement(individual: np.ndarray, dataset: np.nd
             return individual
 
     individual[1][shift_position] = old_field
-    calculate_vpl(individual, dataset)
+    individual[0] = actual_vpl
 
     return individual
 
@@ -38,7 +38,6 @@ def shift1_random_field_best_improvement(individual: np.ndarray, dataset: np.nda
         else:
             individual[0] = actual_vpl
             individual[1][shift_position] = actual_field
-            calculate_vpl(individual, dataset)
     return individual
 
 
@@ -58,7 +57,6 @@ def shift_all_best_improvement(individual: np.ndarray, dataset: np.ndarray) -> n
             else:
                 individual[0] = actual_vpl
                 individual[1][i] = actual_field
-                calculate_vpl(individual, dataset)
 
     return individual
 
@@ -79,7 +77,6 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
             else:
                 individual[0] = actual_vpl
                 individual[1][i] = actual_field
-                calculate_vpl(individual, dataset)
     return individual
 
 

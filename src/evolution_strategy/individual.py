@@ -6,12 +6,11 @@ from src.evolution_strategy.mutations import mutation
 from src.utils.constants import TOTAL_PRESCRIPTIONS
 
 
-def generate_individual(_) -> list[int | ndarray[int] | ndarray]:
+def generate_individual(_) -> list[int | ndarray[int]]:
     solution = np.random.randint(1, TOTAL_PRESCRIPTIONS + 1, 120)
     vpl = 0
-    planning_horizon = np.full(16, 0)
 
-    return [vpl, solution, planning_horizon]
+    return [vpl, solution]
 
 
 def create_descendant(individual: ndarray, dataset: ndarray, mutation_factor: float) -> ndarray:
