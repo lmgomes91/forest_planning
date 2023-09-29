@@ -7,13 +7,13 @@ import time
 
 
 def main():
-    for i in range(0, 1):
+    for i in range(0, 5):
         try:
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
             dataset = open_dataset()
             mu = multiprocessing.cpu_count() * 2
-            generations = 10
+            generations = 600
             mutation = 0.8
 
             es = EvolutionStrategy(dataset, mu, generations, mutation)
@@ -21,7 +21,7 @@ def main():
             end_time = time.time()
             elapsed_time_minutes = (end_time - start_time) / 60
 
-            save_result(result, elapsed_time_minutes, mu, mutation, generations)
+            save_result(result[0], elapsed_time_minutes, mu, mutation, generations)
 
             print(f"The algorithm took {elapsed_time_minutes:.2f} minutes to run.")
             print(f"VPL: {result[0][0]}")

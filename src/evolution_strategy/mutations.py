@@ -34,7 +34,7 @@ def shift_all(
 
 
 def mutation(individual: ndarray, dataset: ndarray, mutation_factor: float) -> ndarray:
-    match random.randint(1, 5):
+    match random.randint(1, 6):
         case 1:
             return shift1(individual, dataset)
         case 2:
@@ -44,6 +44,8 @@ def mutation(individual: ndarray, dataset: ndarray, mutation_factor: float) -> n
         case 4:
             return shift_with_mutation_factor(individual, dataset, mutation_factor, 7)
         case 5:
+            return shift_with_mutation_factor(individual, dataset, mutation_factor, 3)
+        case 6:
             return shift_with_mutation_factor(individual, dataset, mutation_factor, 9)
         # case 6:
         #     return shift_all(individual, dataset, mutation_factor)
