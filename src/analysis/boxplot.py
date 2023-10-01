@@ -31,5 +31,5 @@ def boxplot_results():
     fig.update_yaxes(showgrid=False)
     fig.update_layout(xaxis=dict(showticklabels=False))
     fig.update_layout(yaxis=dict(showticklabels=False))
-    fig.show()
+    # fig.show()
     fig.write_html('graphics/vpl_boxplot.html')
