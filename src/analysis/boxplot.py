@@ -33,6 +33,3 @@ def boxplot_results():
     fig.update_layout(yaxis=dict(showticklabels=False))
     fig.show()
     fig.write_html('graphics/vpl_boxplot.html')
-
-
-boxplot_results()
