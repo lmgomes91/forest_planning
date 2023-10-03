@@ -8,13 +8,13 @@ import time
 
 
 def main():
-    for i in range(0, 5):
+    for i in range(0, 10):
         try:
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
             dataset = open_dataset()
             mu = multiprocessing.cpu_count() * 2
-            generations = 600
+            generations = 800
             mutation = 0.8
 
             es = EvolutionStrategy(dataset, mu, generations, mutation)
@@ -27,7 +27,7 @@ def main():
             print(f"\nSolution: {result[0][1]}")
 
             save_result(result[0], elapsed_time_minutes, mu, mutation, generations)
-            boxplot_results()
+            # boxplot_results()
 
         except Exception as e:
             raise e

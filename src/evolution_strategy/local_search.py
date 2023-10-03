@@ -81,9 +81,7 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
 
 
 def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
-    match random.randint(0, 5):
-        case 0:
-            return shift1_random_field_first_improvement(individual, dataset)
+    match random.randint(1, 5):
         case 1:
             return shift1_random_field_best_improvement(individual, dataset)
         case 2:
