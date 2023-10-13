@@ -1,6 +1,8 @@
 import numpy as np
 from src.evolution_strategy.fo import calculate_vpl
 import random
+from numba import jit
+
 
 
 def shift1_random_field_first_improvement(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
@@ -61,20 +63,27 @@ def shift_all_best_improvement(individual: np.ndarray, dataset: np.ndarray) -> n
     return individual
 
 
+@jit
 def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fields_numbers: np.ndarray) -> np.ndarray:
+    original_vpl = individual[0]
+    original_fields = individual[1].copy()  # Make a copy to keep track of original fields
+
     for i in fields_numbers:
-        actual_vpl = individual[0]
-        actual_field = individual[1][i]
+        best_vpl = original_vpl
+        best_field = original_fields[i]
 
         for field in range(1, 82):
             individual[1][i] = field
             calculate_vpl(individual, dataset)
-            if individual[0] > actual_vpl:
-                actual_vpl = individual[0]
-                actual_field = individual[1][i]
-            else:
-                individual[0] = actual_vpl
-                individual[1][i] = actual_field
+
+            if individual[0] > best_vpl:
+                best_vpl = individual[0]
+                best_field = individual[1][i]
+
+        # Update the individual with the best improvement
+        individual[0] = best_vpl
+        individual[1][i] = best_field
+
     return individual
 
 

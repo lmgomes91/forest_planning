@@ -1,8 +1,10 @@
 from numpy import ndarray
 import numpy as np
 from src.utils.constants import MIN_YEAR_VOLUME, MAX_YEAR_VOLUME, PENALTY
+from numba import jit
 
 
+@jit
 def penalize(individual: ndarray, planning_horizon: ndarray):
     for year_plan in planning_horizon:
         if year_plan < MIN_YEAR_VOLUME:
@@ -11,6 +13,7 @@ def penalize(individual: ndarray, planning_horizon: ndarray):
             individual[0] -= (year_plan - MAX_YEAR_VOLUME) * PENALTY
 
 
+@jit
 def calculate_vpl(individual: ndarray, dataset: ndarray, reset_values: bool = True):
     if reset_values:
         individual[0] = 0

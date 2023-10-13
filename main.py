@@ -5,16 +5,19 @@ from src.utils.csv import save_result
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy
 import time
-
+import warnings
 
 def main():
-    for i in range(0, 10):
+    
+    warnings.filterwarnings("ignore")
+
+    for i in range(0, 23):
         try:
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
             dataset = open_dataset()
             mu = multiprocessing.cpu_count() * 2
-            generations = 400
+            generations = 800
             mutation = 0.8
 
             es = EvolutionStrategy(dataset, mu, generations, mutation)
