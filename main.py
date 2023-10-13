@@ -14,7 +14,7 @@ def main():
             start_time = time.time()
             dataset = open_dataset()
             mu = multiprocessing.cpu_count() * 2
-            generations = 800
+            generations = 400
             mutation = 0.8
 
             es = EvolutionStrategy(dataset, mu, generations, mutation)

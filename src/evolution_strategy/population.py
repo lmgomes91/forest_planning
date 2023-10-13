@@ -32,7 +32,7 @@ def tournament_selection(population: ndarray, mu: int) -> ndarray:
         else:
             winners.append(population[total_population - i])
 
-    return sort_population(np.array(winners, dtype=object))
+    return np.array(winners, dtype=object)
 
 
 def elitism_selection(population: ndarray) -> ndarray:
