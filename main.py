@@ -1,6 +1,6 @@
 import multiprocessing
 
-from src.analysis.boxplot import boxplot_results
+# from src.analysis.boxplot import boxplot_results
 from src.utils.csv import save_result
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy

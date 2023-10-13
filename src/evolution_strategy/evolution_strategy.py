@@ -4,7 +4,8 @@ import numpy as np
 
 from src.evolution_strategy.individual import create_descendant
 from src.evolution_strategy.population import sort_population, init_population, calculate_vpl_population, \
-    elitism_selection, tournament_selection
+    tournament_selection
+from src.evolution_strategy.refine_better_solution import refine_better_solution
 
 
 class EvolutionStrategy:
@@ -19,8 +20,7 @@ class EvolutionStrategy:
         population = init_population(self.mu)
         calculate_vpl_population(population, self.dataset, False)
         population = sort_population(population)
-        num_cores = multiprocessing.cpu_count()
-
+        num_cores = multiprocessing.cpu_count() * 2
         count_vpl = 1
         vpl = population[0][0]
 
@@ -40,6 +40,9 @@ class EvolutionStrategy:
                 )
 
             population = tournament_selection(np.vstack((population, new_population)), self.mu)
+
+            population[0] = refine_better_solution(population[0], self.dataset)
+
             print(f'Iteration {i+1}\tVPL -> Best: {population[0][0]} worst: {population[-1][0]}')
 
             if vpl == population[0][0]:

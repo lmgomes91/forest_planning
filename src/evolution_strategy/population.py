@@ -7,7 +7,7 @@ import concurrent.futures
 
 
 def init_population(num_individuals: int) -> ndarray:
-    num_cores = multiprocessing.cpu_count()
+    num_cores = multiprocessing.cpu_count() * 2
     pool = multiprocessing.Pool(processes=num_cores)
     population_list = pool.map(generate_individual, range(num_individuals))
 

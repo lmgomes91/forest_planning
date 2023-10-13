@@ -66,10 +66,8 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
         actual_vpl = individual[0]
         actual_field = individual[1][i]
 
-        fields_filter: np.ndarray = dataset[dataset[:, 0] == i + 1]
-
-        for field in fields_filter:
-            individual[1][i] = field[2]
+        for field in range(1, 82):
+            individual[1][i] = field
             calculate_vpl(individual, dataset)
             if individual[0] > actual_vpl:
                 actual_vpl = individual[0]
@@ -83,7 +81,7 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
 def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
     match random.randint(1, 5):
         case 1:
-            return shift1_random_field_best_improvement(individual, dataset)
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=1))
         case 2:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=5))
         case 3:

@@ -4,7 +4,7 @@ import pandas as pd
 
 def boxplot_results():
 
-    results_dataset = pd.read_csv('../../dataset/results.csv', delimiter=';')
+    results_dataset = pd.read_csv('../../dataset/results_0.csv', delimiter=';')
     fig = go.Figure()
     fig.add_trace(
         go.Box(
@@ -32,4 +32,7 @@ def boxplot_results():
     fig.update_layout(xaxis=dict(showticklabels=False))
     fig.update_layout(yaxis=dict(showticklabels=False))
     # fig.show()
-    fig.write_html('graphics/vpl_boxplot.html')
+    fig.write_html('graphics/vpl_boxplot_0.html')
+
+
+boxplot_results()

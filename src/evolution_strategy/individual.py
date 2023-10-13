@@ -14,6 +14,6 @@ def generate_individual(_) -> list[int | ndarray[int]]:
 
 
 def create_descendant(individual: ndarray, dataset: ndarray, mutation_factor: float) -> ndarray:
-    new_individual = mutation(individual, dataset, mutation_factor)
+    new_individual = mutation(individual, mutation_factor)
     calculate_vpl(new_individual, dataset)
     return local_search(new_individual, dataset)
