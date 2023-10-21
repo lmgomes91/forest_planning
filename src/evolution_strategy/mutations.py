@@ -42,5 +42,13 @@ def mutation(individual: ndarray, mutation_factor: float) -> ndarray:
             return shift_with_mutation_factor(individual, mutation_factor, 4)
         case 5:
             return shift_with_mutation_factor(individual, mutation_factor, 5)
+        case 5:
+            return shift_with_mutation_factor(individual, mutation_factor, 6)
+        case 5:
+            return shift_with_mutation_factor(individual, mutation_factor, 7)
+        case 5:
+            return shift_with_mutation_factor(individual, mutation_factor, 8)
+        case 5:
+            return shift_with_mutation_factor(individual, mutation_factor, 9)
         case _:
             return individual
