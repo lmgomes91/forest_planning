@@ -49,7 +49,7 @@ def change_2_best_improvement(individual: np.ndarray, dataset: np.ndarray, field
 
 
 def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
-    match random.randint(1, 5):
+    match random.randint(1, 9):
         case 1:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=1))
         case 2:
@@ -60,5 +60,13 @@ def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=4))
         case 5:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=5))
+        case 6:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=6))
+        case 7:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=7))
+        case 8:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=8))
+        case 9:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=9))
         case _:
             return individual
