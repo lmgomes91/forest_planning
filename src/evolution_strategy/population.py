@@ -6,9 +6,8 @@ from src.evolution_strategy.individual import generate_individual
 import concurrent.futures
 
 
-def init_population(num_individuals: int) -> ndarray:
-    num_cores = multiprocessing.cpu_count() * 2
-    pool = multiprocessing.Pool(processes=num_cores)
+def init_population(num_individuals: int, max_workers: int) -> ndarray:
+    pool = multiprocessing.Pool(processes=max_workers)
     population_list = pool.map(generate_individual, range(num_individuals))
 
     pool.close()
@@ -39,7 +38,7 @@ def elitism_selection(population: ndarray) -> ndarray:
     return (sort_population(population))[:population.shape[0] // 2]
 
 
-def calculate_vpl_population(population: ndarray, dataset: ndarray, reset_values: bool = True):
-    with concurrent.futures.ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as executor:
+def calculate_vpl_population(population: ndarray, dataset: ndarray, max_workers: int, reset_values: bool = True):
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [executor.submit(calculate_vpl, element, dataset, reset_values) for element in population]
         concurrent.futures.wait(futures)

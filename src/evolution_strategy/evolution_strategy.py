@@ -1,5 +1,3 @@
-import multiprocessing
-import random
 from multiprocessing import Pool
 import numpy as np
 
@@ -10,17 +8,17 @@ from src.evolution_strategy.population import sort_population, init_population, 
 
 class EvolutionStrategy:
 
-    def __init__(self, dataset: np.ndarray, mu: int, generations: int, mutation: float):
+    def __init__(self, dataset: np.ndarray, mu: int, generations: int, mutation: float, max_workers: int):
         self.dataset = dataset
         self.mu = mu
         self.generations = generations
         self.mutation = mutation
+        self.max_workers = max_workers
 
     def start(self) -> np.ndarray:
-        population = init_population(self.mu)
-        calculate_vpl_population(population, self.dataset, False)
+        population = init_population(self.mu, self.max_workers)
+        calculate_vpl_population(population, self.dataset, self.max_workers, False)
         population = sort_population(population)
-        num_cores = multiprocessing.cpu_count() * 2
         count_vpl = 1
         vpl = population[0][0]
 
@@ -30,7 +28,7 @@ class EvolutionStrategy:
                 self.mutation = round(self.mutation - 0.03, 2)
                 print(f'Mutation downgraded to {self.mutation}')
 
-            with Pool(num_cores) as pool:
+            with Pool(self.max_workers) as pool:
                 new_population = pool.starmap(
                     create_descendant,
                     [
