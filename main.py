@@ -16,7 +16,7 @@ def main():
             mu = 30
             generations = 800
             mutation = 0.8
-            max_workers = 30
+            max_workers = 15
 
             es = EvolutionStrategy(dataset, mu, generations, mutation, max_workers)
             result = es.start()
