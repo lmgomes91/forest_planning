@@ -13,10 +13,10 @@ def main():
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
             dataset = open_dataset()
-            mu = 50
+            mu = 30
             generations = 800
             mutation = 0.8
-            max_workers = 50
+            max_workers = 30
 
             es = EvolutionStrategy(dataset, mu, generations, mutation, max_workers)
             result = es.start()
