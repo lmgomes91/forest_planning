@@ -5,13 +5,10 @@ from src.utils.csv import save_result
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy
 import time
-import warnings
+
 
 def main():
-    
-    warnings.filterwarnings("ignore")
-
-    for i in range(0, 23):
+    for i in range(0, 10):
         try:
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
