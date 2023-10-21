@@ -12,7 +12,7 @@ from src.utils.db import save_result_in_db
 
 def main():
     date = int(datetime.timestamp(datetime.now()))
-    for i in range(0, 1):
+    for i in range(0, 100):
         try:
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
