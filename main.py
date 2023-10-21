@@ -5,16 +5,20 @@ from src.utils.csv import save_result
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy
 import time
+from datetime import datetime
+
+from src.utils.db import save_result_in_db
 
 
 def main():
-    for i in range(0, 10):
+    date = int(datetime.timestamp(datetime.now()))
+    for i in range(0, 1):
         try:
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
             dataset = open_dataset()
             mu = 30
-            generations = 800
+            generations = 1
             mutation = 0.8
             max_workers = 15
 
@@ -27,7 +31,8 @@ def main():
             print(f"VPL: {result[0][0]}")
             print(f"\nSolution: {result[0][1]}")
 
-            save_result(result[0], elapsed_time_minutes, mu, mutation, generations)
+            save_result_in_db(result[0], mu, generations, mutation, elapsed_time_minutes, date)
+            # save_result(result[0], elapsed_time_minutes, mu, mutation, generations)
             # boxplot_results()
 
         except Exception as e:
