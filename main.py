@@ -1,7 +1,3 @@
-import multiprocessing
-
-# from src.analysis.boxplot import boxplot_results
-from src.utils.csv import save_result
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy
 import time
@@ -32,8 +28,6 @@ def main():
             print(f"\nSolution: {result[0][1]}")
 
             save_result_in_db(result[0], mu, generations, mutation, elapsed_time_minutes, date)
-            # save_result(result[0], elapsed_time_minutes, mu, mutation, generations)
-            # boxplot_results()
 
         except Exception as e:
             raise e

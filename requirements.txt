@@ -2,4 +2,4 @@ pandas~=2.1.0
 numpy~=1.24.4
 plotly~=5.17.0
 pymongo~=4.5.0
-python-decouple-=3.8
+python-decouple~=3.8
