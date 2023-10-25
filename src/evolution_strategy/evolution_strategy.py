@@ -41,8 +41,6 @@ class EvolutionStrategy:
             population = tournament_selection(np.vstack((population, new_population)), self.mu)
             population = sort_population(population)
 
-            population[0] = refine_better_solution(population[0], self.dataset)
-
             print(f'Iteration {i+1}\tVPL -> Best: {population[0][0]} worst: {population[-1][0]}')
 
             if vpl == population[0][0]:
@@ -50,4 +48,7 @@ class EvolutionStrategy:
             else:
                 count_vpl = 1
                 vpl = population[0][0]
+
+        print("Refining better solution...")
+        population[0] = refine_better_solution(population[0], self.dataset)
         return population
