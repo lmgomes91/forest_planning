@@ -20,35 +20,34 @@ def shift_with_mutation_factor(
 
 
 def shift_all(
-        individual: ndarray, dataset: ndarray, mutation_factor: float
+        individual: ndarray, mutation_factor: float
 ) -> ndarray:
     for i in range(0, 120):
         if round(random.uniform(0, 1), 2) <= mutation_factor:
-            fields_filter = dataset[dataset[:, 0] == i + 1]
-            field = fields_filter[random.randint(0, fields_filter.shape[0] - 1)]
-            individual[1][i] = field[2]
+            individual[1][i] = random.randint(1, 81)
     return individual
 
 
 def mutation(individual: ndarray, mutation_factor: float) -> ndarray:
-    match random.randint(1, 5):
-        case 1:
-            return shift_with_mutation_factor(individual, mutation_factor, 1)
-        case 2:
-            return shift_with_mutation_factor(individual, mutation_factor, 2)
-        case 3:
-            return shift_with_mutation_factor(individual, mutation_factor, 3)
-        case 4:
-            return shift_with_mutation_factor(individual, mutation_factor, 4)
-        case 5:
-            return shift_with_mutation_factor(individual, mutation_factor, 5)
-        case 5:
-            return shift_with_mutation_factor(individual, mutation_factor, 6)
-        case 5:
-            return shift_with_mutation_factor(individual, mutation_factor, 7)
-        case 5:
-            return shift_with_mutation_factor(individual, mutation_factor, 8)
-        case 5:
-            return shift_with_mutation_factor(individual, mutation_factor, 9)
-        case _:
-            return individual
+    return shift_all(individual, mutation_factor)
+    # match random.randint(1, 5):
+    #     case 1:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 1)
+    #     case 2:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 2)
+    #     case 3:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 3)
+    #     case 4:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 4)
+    #     case 5:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 5)
+    #     case 5:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 6)
+    #     case 5:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 7)
+    #     case 5:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 8)
+    #     case 5:
+    #         return shift_with_mutation_factor(individual, mutation_factor, 9)
+    #     case _:
+    #         return individual
