@@ -49,7 +49,7 @@ def change_2_best_improvement(individual: np.ndarray, dataset: np.ndarray, field
 
 
 def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
-    match random.randint(1, 11):
+    match random.randint(1, 10):
         case 1:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=1))
         case 2:
