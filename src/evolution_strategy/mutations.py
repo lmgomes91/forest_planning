@@ -49,6 +49,6 @@ def mutation(individual: ndarray, mutation_factor: float) -> ndarray:
         case 9:
             return shift_with_mutation_factor(individual, mutation_factor, 9)
         case 10:
-            return shift_all(individual, mutation_factor)
+            return shift_with_mutation_factor(individual, mutation_factor, 10)
         case _:
             return individual
