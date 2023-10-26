@@ -14,7 +14,7 @@ def main():
             start_time = time.time()
             dataset = open_dataset()
             mu = 50
-            generations = 800
+            generations = 600
             mutation = 0.8
             max_workers = 50
 
