@@ -9,7 +9,7 @@ def save_result_in_db(population: np.ndarray, mu: int, generations: int, mutatio
     collection = db["forest_planning_v2"]
 
     for individual in population:
-        if individual[0] > 34999999:
+        if individual[0] > 32999999:
             collection.insert_one({
                 "vpl": int(individual[0]),
                 "solution": np.array2string(individual[1], separator=','),
