@@ -19,15 +19,15 @@ def main():
             max_workers = 50
 
             es = EvolutionStrategy(dataset, mu, generations, mutation, max_workers)
-            result = es.start()
+            results = es.start()
             end_time = time.time()
             elapsed_time_minutes = (end_time - start_time) / 60
 
             print(f"The algorithm took {elapsed_time_minutes:.2f} minutes to run.")
-            print(f"VPL: {result[0][0]}")
-            print(f"\nSolution: {result[0][1]}")
+            print(f"VPL: {results[0][0]}")
+            print(f"\nSolution: {results[0][1]}")
 
-            save_result_in_db(result[0], mu, generations, mutation, elapsed_time_minutes, date)
+            save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes, date)
 
         except Exception as e:
             raise e
