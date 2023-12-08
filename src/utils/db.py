@@ -6,7 +6,7 @@ from decouple import config
 def save_result_in_db(population: np.ndarray, mu: int, generations: int, mutation: float, time, date: int):
     client = MongoClient(config('CONN_STRING_MONGO'))
     db = client["ppgmcs"]
-    collection = db["forest_planning"]
+    collection = db["forest_planning_v2"]
 
     for individual in population:
         if individual[0] > 34999999:
