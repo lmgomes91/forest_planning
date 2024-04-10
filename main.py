@@ -3,13 +3,14 @@ import os
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy
 import time
-from datetime import datetime
+import uuid
 
 from src.utils.db import save_result_in_db
 
 
 def main():
-    date = int(datetime.timestamp(datetime.now()))
+    execution_index = uuid.uuid4()
+
     for i in range(0, 100):
         try:
             print(f'\n############# Processing {i} ##############')
@@ -29,7 +30,7 @@ def main():
             print(f"VPL: {results[0][0]}")
             print(f"\nSolution: {results[0][1]}")
 
-            # save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes, date)
+            save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes, execution_index)
 
         except Exception as e:
             raise e
