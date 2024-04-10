@@ -1,3 +1,5 @@
+import os
+
 from src.utils.dataset import open_dataset
 from src.evolution_strategy.evolution_strategy import EvolutionStrategy
 import time
@@ -13,10 +15,10 @@ def main():
             print(f'\n############# Processing {i} ##############')
             start_time = time.time()
             dataset = open_dataset()
-            mu = 50
+            mu = 30
             generations = 600
             mutation = 0.8
-            max_workers = 50
+            max_workers = (os.cpu_count() * 2) - 1
 
             es = EvolutionStrategy(dataset, mu, generations, mutation, max_workers)
             results = es.start()
@@ -27,7 +29,7 @@ def main():
             print(f"VPL: {results[0][0]}")
             print(f"\nSolution: {results[0][1]}")
 
-            save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes, date)
+            # save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes, date)
 
         except Exception as e:
             raise e

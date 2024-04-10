@@ -25,25 +25,24 @@ def shift_any_best_improvement(individual: np.ndarray, dataset: np.ndarray, fiel
     return individual
 
 
-def change_2_best_improvement(individual: np.ndarray, dataset: np.ndarray, fields: np.ndarray) -> np.ndarray:
-    best_vpl = individual[0]
-    best_field_0 = individual[1][fields[0]]
-    best_field_1 = individual[1][fields[1]]
+def shift_any_first_improvement(individual: np.ndarray, dataset: np.ndarray, fields_numbers: np.ndarray) -> np.ndarray:
+    original_vpl = individual[0]
+    has_improved = False
+    for i in fields_numbers:
+        vpl = original_vpl
+        field = individual[1][i]
 
-    for i in range(1, 82):
-        individual[1][fields[0]] = i
-        for j in range(1, 82):
-            individual[1][fields[1]] = j
-
+        for field in range(1, 82):
+            individual[1][i] = field
             calculate_vpl(individual, dataset)
-            if individual[0] > best_vpl:
-                best_vpl = individual[0]
-                best_field_0 = i
-                best_field_1 = j
 
-    individual[0] = best_vpl
-    individual[1][fields[0]] = best_field_0
-    individual[1][fields[1]] = best_field_1
+            if individual[0] > vpl:
+                has_improved = True
+                break
+
+        if not has_improved:
+            individual[0] = vpl
+            individual[1][i] = field
 
     return individual
 
@@ -75,18 +74,24 @@ def shift1_best_improvement(individual: np.ndarray, dataset: np.ndarray) -> np.n
 
 
 def local_search(individual: np.ndarray, dataset: np.ndarray) -> np.ndarray:
-    match random.randint(1, 6):
+    match random.randint(1, 10):
         case 1:
-            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=1))
-        case 2:
-            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=3))
-        case 3:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=5))
-        case 4:
-            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=7))
-        case 5:
-            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=9))
-        case 6:
+        case 2:
             return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=10))
+        case 3:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=15))
+        case 4:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=20))
+        case 5:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=25))
+        case 6:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=30))
+        case 7:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=35))
+        case 8:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=45))
+        case 9:
+            return shift_any_best_improvement(individual, dataset, np.random.randint(0, 120, size=50))
         case _:
             return individual
