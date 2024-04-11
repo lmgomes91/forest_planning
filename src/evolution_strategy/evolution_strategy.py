@@ -48,6 +48,9 @@ class EvolutionStrategy:
                 count_vpl = 1
                 vpl = population[0][0]
 
+            if count_vpl == 60:
+                break
+
         print("Refining better solution...")
         population[0] = refine_better_solution(population[0], self.dataset)
         return population

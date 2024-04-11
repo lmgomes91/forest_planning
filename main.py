@@ -9,7 +9,6 @@ from src.utils.db import save_result_in_db
 
 
 def main():
-    execution_index = uuid.uuid4()
 
     for i in range(0, 100):
         try:
@@ -18,7 +17,7 @@ def main():
             dataset = open_dataset()
             mu = 30
             generations = 600
-            mutation = 0.8
+            mutation = 0.4
             max_workers = (os.cpu_count() * 2) - 1
 
             es = EvolutionStrategy(dataset, mu, generations, mutation, max_workers)
@@ -30,7 +29,7 @@ def main():
             print(f"VPL: {results[0][0]}")
             print(f"\nSolution: {results[0][1]}")
 
-            save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes, execution_index)
+            save_result_in_db(results, mu, generations, mutation, elapsed_time_minutes)
 
         except Exception as e:
             raise e
